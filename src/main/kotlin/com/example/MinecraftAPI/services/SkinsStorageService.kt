@@ -9,7 +9,7 @@ import java.util.stream.Stream
 
 interface SkinsStorageService {
     fun init()
-    fun saveSkin(username: String, file: MultipartFile): ResponseEntity<UploadFileResponse>
+    fun saveSkin(username: String, file: MultipartFile): ResponseEntity<Any>
     fun loadAll(): Stream<Path>
     fun load(fileName: String): Path
     fun loadAsResources(fileName: String): Resource

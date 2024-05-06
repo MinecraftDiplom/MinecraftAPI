@@ -3,6 +3,7 @@ package com.example.MinecraftAPI.rest.tutorial
 import com.example.MinecraftAPI.configuration.UploadDirectory
 import com.example.MinecraftAPI.exception.StorageFileNotFoundException
 import com.example.MinecraftAPI.service.FileStorageService
+import com.example.MinecraftAPI.service.SkinsStorageService
 import org.springframework.core.io.Resource
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -22,7 +23,8 @@ import java.util.stream.Collectors
 
 @Controller
 class FileUploadController(
-    private val fileStorageService: FileStorageService
+    private val fileStorageService: FileStorageService,
+    private val skins: SkinsStorageService,
 ) {
 
     @ExceptionHandler(NoSuchElementException::class)

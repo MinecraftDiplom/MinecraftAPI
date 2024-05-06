@@ -9,6 +9,7 @@ import com.example.MinecraftAPI.utils.MainLogger.Companion.logger
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.Resource
 import org.springframework.http.HttpHeaders
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -32,6 +33,7 @@ class CloakController(
         val resource: Resource = cloaks.loadAsResources("$username.png")
         logger.info("$username просматривает свой плащ")
         return ResponseEntity.ok()
+            .contentType(MediaType.IMAGE_PNG)
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.filename + "\"")
             .body(resource)
     }
