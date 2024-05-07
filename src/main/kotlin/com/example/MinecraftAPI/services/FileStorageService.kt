@@ -11,6 +11,7 @@ interface FileStorageService {
     fun loadAll(): Stream<Path>
     fun load(fileName: String): Path
     fun loadAsResources(fileName: String): Resource
+    fun delete(resource: Resource): Boolean
 
     fun deleteAll()
 }

@@ -12,7 +12,7 @@ interface CloakStorageService {
     fun saveCloak(username: String, file: MultipartFile): ResponseEntity<UploadFileResponse>
     fun loadAll(): Stream<Path>
     fun load(fileName: String): Path
-    fun loadAsResources(fileName: String): Resource
-    fun deleteCloak(username: String)
+    fun loadAsResources(fileName: String): Resource?
+    fun deleteCloak(resource: Resource): Boolean
     fun deleteAll()
 }

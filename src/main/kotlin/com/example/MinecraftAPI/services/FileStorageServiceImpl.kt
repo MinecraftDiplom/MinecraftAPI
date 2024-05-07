@@ -75,6 +75,10 @@ class FileStorageServiceImpl(
         throw StorageFileNotFoundException("Could not read file: $fileName", e)
     }
 
+    override fun delete(resource: Resource): Boolean {
+        TODO("Not yet implemented")
+    }
+
     override fun deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
     }

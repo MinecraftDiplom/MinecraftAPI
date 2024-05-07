@@ -79,19 +79,32 @@ class CloakStorageServiceImpl(
         }
 
     override fun load(fileName: String): Path = rootLocation.resolve(fileName)
-    override fun loadAsResources(fileName: String): Resource = try {
-        val resource: Resource = UrlResource(load(fileName).toUri())
-        if (resource.exists() || resource.isReadable) {
-            resource
-        } else {
-            throw StorageFileNotFoundException("Could not read file: $fileName")
+    override fun loadAsResources(fileName: String): Resource? {
+        return try {
+            val resource = UrlResource(load(fileName).toUri())
+            if (resource.exists() || resource.isReadable) {
+                return resource
+            }
+            null
+        } catch (e: MalformedURLException) {
+            null
         }
-    } catch (e: MalformedURLException) {
-        throw StorageFileNotFoundException("Could not read file: $fileName", e)
     }
+//    override fun loadAsResources(fileName: String): Resource? = try {
+//        val resource: Resource = UrlResource(load(fileName).toUri())
+//        if (resource.exists() || resource.isReadable) {
+//            resource
+//        } else {
+//            throw StorageFileNotFoundException("Could not read file: $fileName")
+//        }
+//    } catch (e: MalformedURLException) {
+//        throw StorageFileNotFoundException("Could not read file: $fileName", e)
+//    }
 
-    override fun deleteCloak(username: String) {
-        TODO("Not yet implemented")
+    override fun deleteCloak(resource: Resource): Boolean = try {
+        Files.deleteIfExists(resource.file.toPath())
+    }catch (e: Exception){
+        false
     }
 
     override fun deleteAll() {

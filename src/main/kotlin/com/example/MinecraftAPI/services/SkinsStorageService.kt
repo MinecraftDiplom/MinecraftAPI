@@ -12,7 +12,7 @@ interface SkinsStorageService {
     fun saveSkin(username: String, file: MultipartFile): ResponseEntity<Any>
     fun loadAll(): Stream<Path>
     fun load(fileName: String): Path
-    fun loadAsResources(fileName: String): Resource
-    fun deleteSkin(username: String)
+    fun loadAsResources(fileName: String): Resource?
+    fun deleteSkin(resource: Resource): Boolean
     fun deleteAll()
 }

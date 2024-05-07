@@ -20,21 +20,48 @@ class CloakController(
     private val cloaks: CloakStorageService,
     @Autowired val profiles: MinecraftUsersRepository
 ) {
-    @PostMapping("/{username}.png")
-    fun uploadSkin(@PathVariable username: String, @RequestParam("file") file: MultipartFile): ResponseEntity<UploadFileResponse> {
+    private final var defaultCloak: Resource? = null;
+    init {
+        defaultCloak = cloaks.loadAsResources("default_not_found_cloak.png")
+    }
+    @PostMapping("/{username}")
+    fun uploadCloak(@PathVariable username: String, @RequestParam("file") file: MultipartFile): ResponseEntity<UploadFileResponse> {
         if(profiles.findMinecraftUserByUsername(username)==null) return ResponseEntity.notFound().build()
         logger.info("$username загрузил себе новый плащ")
         return cloaks.saveCloak(username, file)
     }
 
-    @GetMapping("/{username}.png")
-    fun getSkin(@PathVariable username: String
+    @GetMapping("/{username}")
+    fun getCloak(@PathVariable username: String
     ): ResponseEntity<Resource> {
-        val resource: Resource = cloaks.loadAsResources("$username.png")
+        var resource = cloaks.loadAsResources("$username.png")
+
+        var isFound = true
+        if(resource == null){
+            resource = defaultCloak ?: return ResponseEntity.notFound().build()
+            isFound = false
+        }
+
         logger.info("$username просматривает свой плащ")
         return ResponseEntity.ok()
             .contentType(MediaType.IMAGE_PNG)
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.filename + "\"")
+            .header("isFound", "$isFound")
             .body(resource)
+    }
+
+    @PostMapping("/remove/{username}")
+    fun removeResourceFile(@PathVariable username: String): ResponseEntity<Any> {
+        logger.info("$username удаляет свой скин")
+        val resource: Resource = cloaks.loadAsResources("$username.png")?:
+            return ResponseEntity.notFound().build()
+
+        val isDeleted = cloaks.deleteCloak(resource)
+
+        return if(isDeleted){
+            ResponseEntity.ok().build()
+        }else{
+            ResponseEntity.internalServerError().build()
+        }
     }
 }
