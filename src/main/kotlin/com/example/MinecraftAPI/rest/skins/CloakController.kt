@@ -26,7 +26,8 @@ class CloakController(
     }
     @PostMapping("/{username}")
     fun uploadCloak(@PathVariable username: String, @RequestParam("file") file: MultipartFile): ResponseEntity<UploadFileResponse> {
-        if(profiles.findMinecraftUserByUsername(username)==null) return ResponseEntity.notFound().build()
+        val profile = profiles.findMinecraftUserByUsername(username) ?: return ResponseEntity.notFound().build()
+        if(!profile.hasSubscription) return ResponseEntity.status(402).build()
         logger.info("$username загрузил себе новый плащ")
         return cloaks.saveCloak(username, file)
     }
