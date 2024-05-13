@@ -1,8 +1,9 @@
-package com.example.MinecraftAPI.service
+package com.example.MinecraftAPI.implementations
 
 import com.example.MinecraftAPI.configuration.StorageProperties
 import com.example.MinecraftAPI.exception.StorageException
 import com.example.MinecraftAPI.exception.StorageFileNotFoundException
+import com.example.MinecraftAPI.service.FileStorageService
 import org.springframework.core.io.Resource
 import org.springframework.core.io.UrlResource
 import org.springframework.stereotype.Service

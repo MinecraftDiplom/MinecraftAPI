@@ -31,7 +31,6 @@ class MinecraftApiApplication{
 		cloakService: CloakStorageService,
 	): CommandLineRunner {
 		return CommandLineRunner { _: Array<String?>? ->
-//			storageService.deleteAll()
 			storageService.init()
 			skinsService.init()
 			cloakService.init()
