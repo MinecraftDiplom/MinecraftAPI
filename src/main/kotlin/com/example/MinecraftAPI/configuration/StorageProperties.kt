@@ -21,3 +21,9 @@ data class CloaksProperties(
     val location: String,
     val maxSizeMB: Int,
 )
+
+@ConfigurationProperties("com.telegram")
+data class TelegramToken(
+    val token: String,
+)
+
