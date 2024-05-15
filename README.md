@@ -1,14 +1,16 @@
 # MineProfile API
 
 API разработано для MineProfile.
+
 Телеграмм бот [клик](https://t.me/Koliy82Bot).
+
 Мобильное приложение скачать можно командой /mobile в [боте](https://t.me/Koliy82Bot).
 
 # Self Hosted
 
 Для сборки проекта необходимо переименовать файл с примером конфигурации и установить свои переменные:
-nmsr-skin-api/example.config.toml -> config.toml
-src/main/resources/example.application.properties -> application.properties
+### `nmsr-skin-api/example.config.toml` -> config.toml
+### `src/main/resources/example.application.properties` -> application.properties
 
 После установки переменных необходимо открыть консоль, перейти в дирикторию с файлом docker-compose.yml и написать следующую команду:
 docker compose up -d
@@ -30,50 +32,50 @@ docker compose up -d
             <td rowspan="5">Body</td>
             <td>FullBody</td>
             <td>Full body render</td>
-            <td><img src=".nmsr-skin-api/assets/NickAc-fullbody.png" width="100"></td>
-            <td><img src=".nmsr-skin-api/assets/NickAc-fullbody-back.png" width="100"></td>
+            <td><img src="nmsr-skin-api/.assets/NickAc-fullbody.png" width="100"></td>
+            <td><img src="nmsr-skin-api/.assets/NickAc-fullbody-back.png" width="100"></td>
         </tr>
         <tr>
             <td>FullBodyIso</td>
             <td>Full body isometric render</td>
-            <td><img src=".nmsr-skin-api/assets/NickAc-fullbodyiso.png" width="100"></td>
-            <td><img src=".nmsr-skin-api/assets/NickAc-fullbodyiso-back.png" width="100"></td>
+            <td><img src="nmsr-skin-api/.assets/NickAc-fullbodyiso.png" width="100"></td>
+            <td><img src="nmsr-skin-api/.assets/NickAc-fullbodyiso-back.png" width="100"></td>
         </tr>
         <tr>
             <td>BodyBust</td>
             <td>Body bust render</td>
-            <td><img src=".nmsr-skin-api/assets/NickAc-bodybust.png" width="100"></td>
-            <td><img src=".nmsr-skin-api/assets/NickAc-bodybust-back.png" width="100"></td>
+            <td><img src="nmsr-skin-api/.assets/NickAc-bodybust.png" width="100"></td>
+            <td><img src="nmsr-skin-api/.assets/NickAc-bodybust-back.png" width="100"></td>
         </tr>
         <tr>
             <td>FrontBust</td>
             <td>Bust isometric front render</td>
-            <td><img src=".nmsr-skin-api/assets/NickAc-frontbust.png" width="100"></td>
+            <td><img src="nmsr-skin-api/.assets/NickAc-frontbust.png" width="100"></td>
             <td></td>
         </tr>
         <tr>
             <td>FrontFull</td>
             <td>Full isometric front render</td>
-            <td><img src=".nmsr-skin-api/assets/NickAc-frontfull.png" width="100"></td>
+            <td><img src="nmsr-skin-api/.assets/NickAc-frontfull.png" width="100"></td>
             <td></td>
         </tr>
         <tr>
             <td rowspan="3">Head</td>
             <td>Head</td>
             <td>Head render</td>
-            <td><img src=".nmsr-skin-api/assets/NickAc-head.png" width="100"></td>
-            <td><img src=".nmsr-skin-api/assets/NickAc-head-back.png" width="100"></td>
+            <td><img src="nmsr-skin-api/.assets/NickAc-head.png" width="100"></td>
+            <td><img src="nmsr-skin-api/.assets/NickAc-head-back.png" width="100"></td>
         </tr>
         <tr>
             <td>HeadIso</td>
             <td>Head isometric render</td>
-            <td><img src=".nmsr-skin-api/assets/NickAc-headiso.png" width="100"></td>
-            <td><img src=".nmsr-skin-api/assets/NickAc-headiso-back.png" width="100"></td>
+            <td><img src="nmsr-skin-api/.assets/NickAc-headiso.png" width="100"></td>
+            <td><img src="nmsr-skin-api/.assets/NickAc-headiso-back.png" width="100"></td>
         </tr>
         <tr>
             <td>Face</td>
             <td>Face render</td>
-            <td><img src=".nmsr-skin-api/assets/NickAc-face.png" width="100"></td>
+            <td><img src="nmsr-skin-api/.assets/NickAc-face.png" width="100"></td>
             <td></td>
         </tr>
         <tr>
