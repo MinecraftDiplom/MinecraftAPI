@@ -1,0 +1,111 @@
+[package]
+name = "nmsr-aas"
+version = "0.2.0"
+edition = "2021"
+build = "build.rs"
+
+authors.workspace = true
+homepage.workspace = true
+
+[dependencies]
+# NMSR Rendering - Library for rendering using a wgpu backed rendering engine
+nmsr-rendering = { path = "../nmsr-3d-renderer/nmsr-rendering", features = [
+    "part_tracker",
+] }
+
+nmsr-rendering-blockbench-model-generator-experiment = { path = "../utils/nmsr-rendering-blockbench-model-generator-experiment" }
+
+ears-rs = { workspace = true }
+
+anyhow = { workspace = true }
+axum = { version = "0.7", features = [
+    "macros",
+    "tokio"
+] }
+axum-extra = { version = "0.9", features = [
+    "multipart",
+] }
+http-body-util = "0.1"
+
+# async-trait - Async trait support because Rust is bad at async
+async-trait = { workspace = true }
+
+# Twelf - Configuration library
+twelf = { version = "0.15", default-features = false, features = [
+    "env",
+    "toml",
+    "default_trait",
+] }
+
+# Serde - Serialization and Deserialization framework
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+base64 = "0.22"
+
+# Hyper - HTTP client
+hyper = { version = "1.2.0", features = ["client"] }
+hyper-util = { version = "0.1", features = ["client", "client-legacy", "http1", "http2", "server-auto", "tokio"] }
+hyper-tls = "0.6"
+url = "2.5"
+
+# Tokio - Async runtime
+tokio = { workspace = true, features = ["macros", "fs", "sync", "signal", "rt-multi-thread"] }
+
+# Tracing - Logging framework
+tracing = { workspace = true }
+
+# Tracing subscriber - Composing Tracing subscribers
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# OpenTelemetry - Tracing framework
+opentelemetry = { version = "0.22", features = [] }
+opentelemetry_sdk = { version = "0.22", features = ["rt-tokio"] }
+opentelemetry-otlp = { version = "0.15", default-features = true }
+
+# Tracing OpenTelemetry - Tracing subscriber for OpenTelemetry
+tracing-opentelemetry = "0.23"
+
+# Strum - Enum helper library
+strum = { workspace = true }
+enumset = { version = "1.1", features = ["serde", "alloc", "std"] }
+
+# Uuid - Uuid library
+uuid = { workspace = true }
+
+# ThisError - Error library
+thiserror = { workspace = true }
+
+# Derive More - More derive macros because Rust's standard library doesn't have enough
+derive_more = { workspace = true }
+
+# Tower - Service framework
+tower = { version = "0.4", features = ["limit"] }
+tower-http = { version = "0.5", features = ["full"] }
+http = "1.0"
+
+# symlink - Symbolic link library (because Rust's standard library doesn't handle that properly for us)
+symlink = "0.1"
+humantime-serde = "1.1"
+serde_with = "3.3"
+deadpool = { workspace = true }
+image = { workspace = true, default-features = false }
+mtpng = "0.3"
+
+chrono = "0.4"
+tokio-stream = { version = "0.1", features = ["fs"] }
+sync_wrapper = "1.0"
+
+regex = "1.10"
+indoc = "2"
+
+xxhash-rust = { workspace = true }
+
+is_empty = "0.2"
+
+[features]
+default = []
+ears = [
+    "nmsr-rendering/ears",
+    "nmsr-rendering-blockbench-model-generator-experiment/ears",
+]
