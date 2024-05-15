@@ -35,6 +35,14 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
+	implementation ("io.ktor:ktor-client-core:2.3.11")
+	implementation ("io.ktor:ktor-client-cio:2.3.11")
+	implementation ("io.ktor:ktor-client-logging:2.3.11")
+	implementation ("io.ktor:ktor-client-content-negotiation:2.3.11")
+	implementation ("io.ktor:ktor-client-json:2.3.11")
 }
 
 tasks.withType<KotlinCompile> {

@@ -1,26 +1,27 @@
 package com.example.MinecraftAPI.rest.skins
 
 import com.example.MinecraftAPI.repositories.MinecraftUsersRepository
+import com.example.MinecraftAPI.service.CloakStorageService
 import com.example.MinecraftAPI.service.SkinsStorageService
 import com.example.MinecraftAPI.utils.MainLogger.Companion.logger
 import com.example.MinecraftAPI.utils.RenderMode
-import com.example.MinecraftAPI.utils.skinRender
+import com.example.MinecraftAPI.utils.skinRenderKtor
+import io.ktor.client.call.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.Resource
 import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpStatusCode
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.multipart.MultipartFile
-import java.nio.file.Files
 
 @RestController
 @RequestMapping("/skins")
 class SkinController(
     private val skins: SkinsStorageService,
     @Autowired val profiles: MinecraftUsersRepository,
+    private val capes: CloakStorageService,
     val client: RestTemplate,
 ) {
     private final var defaultSkin: Resource? = null;
@@ -64,7 +65,11 @@ class SkinController(
     }
 
     @GetMapping("/render/{mode}/{username}")
-    fun getRenderSkin(@PathVariable username: String, @PathVariable mode: String): ResponseEntity<ByteArray> {
+    suspend fun getRenderSkin(
+        @PathVariable username: String,
+        @PathVariable mode: String,
+        @RequestParam(defaultValue = "0") y: String,
+        ): ResponseEntity<ByteArray> {
         logger.info("$username просматривает свой скин")
         val renderMode = RenderMode.entries.firstOrNull { it.mapping == mode } ?: return ResponseEntity.badRequest().build()
         var resource = skins.loadAsResources("$username.png")
@@ -75,13 +80,14 @@ class SkinController(
             isFound = false
         }
 
-        val response = resource.skinRender(renderMode, client)
+        val cape = capes.loadAsResources("$username.png")
+        val response = resource.skinRenderKtor(renderMode, cape, y)
 
         return ResponseEntity
-            .status(response.statusCode)
+            .status(response.status.value)
             .contentType(MediaType.IMAGE_PNG)
             .header("isFound", "$isFound")
-            .body(response.body)
+            .body(response.body<ByteArray>())
     }
 
 }

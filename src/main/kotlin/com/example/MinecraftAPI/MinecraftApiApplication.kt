@@ -44,6 +44,6 @@ class MinecraftApiApplication{
 }
 
 fun main(args: Array<String>) {
-	TelegramBot.initialise("7111060319:AAFxj4U0cqK3jSYItM-X_Skif2R235BAP8w")
+//	TelegramBot.initialise("7111060319:AAFxj4U0cqK3jSYItM-X_Skif2R235BAP8w")
 	runApplication<MinecraftApiApplication>(*args)
 }
