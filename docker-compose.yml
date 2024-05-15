@@ -1,0 +1,20 @@
+version: "3"
+services:
+  api:
+    container_name: api
+    image: amazoncorretto:21
+    restart: always
+    ports:
+      - 9000:8080
+    volumes:
+      - type: bind
+        source: build/libs
+        target: /api
+    working_dir: /api
+    command: java -Dfile.encoding=utf-8 -jar MinecraftAPI-0.0.1-SNAPSHOT.jar
+  skin:
+    container_name: skin
+    build: nmsr-skin-api/.
+    ports:
+    - 9088:8088
+    restart: unless-stopped
