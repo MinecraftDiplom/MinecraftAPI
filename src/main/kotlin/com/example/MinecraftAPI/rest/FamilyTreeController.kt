@@ -18,14 +18,17 @@ class FamilyTreeController(
     @Autowired val braks: BrakRepository,
     @Autowired val users: TelegramUsersRepository,
 ) {
+
     fun createTree(user: TelegramUser): FamilyTree {
-        var brak = braks.findBrakByFirstUserIDOrSecondUserID(user.id, user.id) ?: return FamilyTree(user)
+        val repeatFixMap = mutableMapOf<Long, Boolean>()
+        braks.findBrakByFirstUserIDOrSecondUserID(user.id, user.id) ?: return FamilyTree(user)
+
         val tree = FamilyTree(user)
-        createTreeRecursive(user, tree)
+        createTreeRecursive(user, tree, repeatFixMap)
         return tree
     }
 
-    private fun createTreeRecursive(user: TelegramUser, tree: FamilyTree) {
+    private fun createTreeRecursive(user: TelegramUser, tree: FamilyTree, repeatFixMap: MutableMap<Long, Boolean>) {
         val brak = braks.findBrakByFirstUserIDOrSecondUserID(user.id, user.id) ?: return
         val partnerID = if (brak.firstUserID == user.id) brak.secondUserID else brak.firstUserID
         val partner = users.findTelegramUserById(partnerID) ?: return
@@ -34,7 +37,11 @@ class FamilyTreeController(
         if (brak.baby != null) {
             val child = users.findTelegramUserById(brak.baby!!.userID) ?: return
             tree.right = FamilyTree(child)
-            createTreeRecursive(child, tree.right!!)
+
+            if(repeatFixMap[child.id] == true) return
+            repeatFixMap[child.id] = true
+
+            createTreeRecursive(child, tree.right!!, repeatFixMap)
         }
     }
 //    @GetMapping
